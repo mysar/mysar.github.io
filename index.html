@@ -309,6 +309,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Quartz/" itemprop="url" rel="index">
+                    <span itemprop="name">Quartz</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -344,8 +363,8 @@
           
           前言
 之所以需要用到 Quartz，是因为在工作中有一些定时任务，原先在不涉及到多机集群的情况下使用 Java 的 @schedule 注解实现，现在涉及到集群，所以使用 Quartz 代替。
-Quartz 简介 与 简单Demo（不支持多机）
-它是一个开源的任务调度框架，基于 Java 的实现。可
+它是一个开源的任务调度框架，基于 Java 的实现。可以用它来实现定时任务，支持集群。
+使用 Quartz
           ...
 
           <div class="post-more-link text-center">
@@ -535,7 +554,21 @@ Generate static files1$ hex
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>

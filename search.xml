@@ -7,16 +7,30 @@
       <url>/2017/06/24/Quartz%E5%88%9D%E6%AD%A5-1/</url>
       <content type="html"><![CDATA[<p>前言</p>
 <p>之所以需要用到 Quartz，是因为在工作中有一些定时任务，原先在不涉及到多机集群的情况下使用 Java 的 @schedule 注解实现，现在涉及到集群，所以使用 Quartz 代替。</p>
-<p>Quartz 简介 与 简单Demo（不支持多机）</p>
 <p>它是一个开源的任务调度框架，基于 Java 的实现。可以用它来实现定时任务，支持集群。</p>
 <p>使用 Quartz 会有一些概念：</p>
-<p>Job：具体需要执行的任务<br>JobDetail：该任务的信息，包括具体执行的任务以及其他一些相关的信息<br>Trigger：触发器<br>Scheduler：任务调度器<br>Misfire：错过的，指本来应该被执行但是实际没有被执行的任务调度</p>
+<p><code>Job</code>：具体需要执行的任务<br><code>JobDetail</code>：该任务的信息，包括具体执行的任务以及其他一些相关的信息<br><code>Trigger</code>：触发器<br><code>Scheduler</code>：任务调度器<br><code>Misfire</code>：错过的，指本来应该被执行但是实际没有被执行的任务调度</p>
 <p>实现一个最简单的 Quartz 定时任务（不支持多机），有几个步骤：</p>
 <p>创建 Job。<br>创建 JobDetailFactoryBean。顾名思义，可以用于生成 JobDetail 。<br>创建 Trigger。作用：配置定时时间。<br>创建 SchedulerFactoryBean。作用：启动定时任务。<br>实现Demo</p>
 <p>创建 Job：具体的执行任务</p>
-<p>@Slf4j<br>public class MyJob implements Job {<br>    @Override<br>    public void execute(JobExecutionContext context) throws JobExecutionException {<br>        log.info(“Do the job!”);<br>        try {<br>            log.info(“job scheduler = {}.”,context.getScheduler().getSchedulerName());<br>        } catch (SchedulerException e) {<br>            e.printStackTrace();<br>        }<br>        log.info(“job trigger = {}.”,context.getTrigger());<br>    }<br>}<br>创建 JobDetailFactoryBean，CronTriggerFactoryBean，SchedulerFactoryBean。</p>
-<p>@Slf4j<br>@Configuration<br>public class SchedulerJob {</p>
-<pre><code>private final static String CRON_EXPRESSION = &quot;*/3 * * * * ?&quot;;
+<pre><code>@Slf4j
+public class MyJob implements Job {
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        log.info(&quot;Do the job!&quot;);
+        try {
+          log.info(&quot;job scheduler = {}.&quot;,context.getScheduler().getSchedulerName());
+    } catch (SchedulerException e) {
+        e.printStackTrace();
+    }
+    log.info(&quot;job trigger = {}.&quot;,context.getTrigger());
+}}
+</code></pre><p>创建 JobDetailFactoryBean，CronTriggerFactoryBean，SchedulerFactoryBean。</p>
+<pre><code>@Slf4j
+@Configuration
+public class SchedulerJob {
+
+private final static String CRON_EXPRESSION = &quot;*/3 * * * * ?&quot;;
 
 @Bean
 public JobDetailFactoryBean createJobDetail(){
@@ -50,7 +64,7 @@ public SchedulerFactoryBean schedulerFactoryBean(List&lt;Trigger&gt; triggers){
 
     return schedulerFactoryBean;
 }
-</code></pre><p>}<br>以上便可实现一个单机的定时任务。</p>
+</code></pre><p>以上便可实现一个单机的定时任务。</p>
 <p>Quartz 支持多机任务调度原理</p>
 <p>Quartz主要是通过 <em>借助关系数据库</em> 和 <em>JDBC作业存储</em> 来实现集群管理的。如下图所示：</p>
 <p>quartz</p>
@@ -131,6 +145,18 @@ org.quartz.jobStore.clusterCheckinInterval = 1000
 <p>写出来，说出来才知道对不对，知道不对才能改正，改正了才能成长。<br>在技术方面，希望大家眼里都容不得沙子。如果有不对的地方或者需要改进的地方希望可以指出，万分感谢。</p>
 ]]></content>
       
+        <categories>
+            
+            <category> Quartz </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> IDEA </tag>
+            
+        </tags>
         
     </entry>
     

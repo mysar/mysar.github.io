@@ -3,6 +3,71 @@
   
     
     <entry>
+      <title><![CDATA[CentOS 7.3 x64 安装部署gitlab服务器]]></title>
+      <url>/2017/07/06/gitlab/</url>
+      <content type="html"><![CDATA[<h2 id="Centos7-安装部署gitlab服务器"><a href="#Centos7-安装部署gitlab服务器" class="headerlink" title="Centos7 安装部署gitlab服务器"></a>Centos7 安装部署gitlab服务器</h2><h4 id="1-安装依赖软件"><a href="#1-安装依赖软件" class="headerlink" title="1. 安装依赖软件"></a>1. 安装依赖软件</h4><p><code>yum -y install policycoreutils openssh-server openssh-clients postfix</code></p>
+<h4 id="2-设置postfix开机自启，并启动，postfix支持gitlab发信功能"><a href="#2-设置postfix开机自启，并启动，postfix支持gitlab发信功能" class="headerlink" title="2. 设置postfix开机自启，并启动，postfix支持gitlab发信功能"></a>2. 设置postfix开机自启，并启动，postfix支持gitlab发信功能</h4><p><code>systemctl enable postfix &amp;&amp; systemctl start postfix</code></p>
+<h4 id="3-下载gitlab安装包，"><a href="#3-下载gitlab安装包，" class="headerlink" title="3. 下载gitlab安装包，"></a>3. 下载gitlab安装包，</h4><p>centos 6系统的下载地址:<code>https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el6</code><br>centos 7系统的下载地址:<code>https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7</code><br>我的是centos7,所以我在<code>https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7</code>中找一个比较新的版本,下载rpm包并安装:<br><code>wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-7.10.0~omnibus.4-1.x86_64.rpm</code><br><code>rpm -i gitlab-ce-8.0.0-ce.0.el7.x86_64.rpm</code></p>
+<h4 id="4-修改gitlab配置文件指定服务器ip和自定义端口："><a href="#4-修改gitlab配置文件指定服务器ip和自定义端口：" class="headerlink" title="4. 修改gitlab配置文件指定服务器ip和自定义端口："></a>4. 修改gitlab配置文件指定服务器ip和自定义端口：</h4><p><code>vim  /etc/gitlab/gitlab.rb</code></p>
+<p>编辑完毕后，按ESC键，跳到命令模式，然后进行保存退出或不保存退出操作：</p>
+<table>
+<thead>
+<tr>
+<th>效果</th>
+<th>语法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>保存,不退出</td>
+<td>:w</td>
+</tr>
+<tr>
+<td>强制保存,不退出</td>
+<td>:w!</td>
+</tr>
+<tr>
+<td>不保存,并退出</td>
+<td>:q</td>
+</tr>
+<tr>
+<td>不保存,并强制退出</td>
+<td>:q!</td>
+</tr>
+<tr>
+<td><code>保存,并退出</code></td>
+<td><code>:wq 或 :x</code></td>
+</tr>
+</tbody>
+</table>
+<p>ps:注意这里设置的端口不能被占用，默认是8080端口，如果8080已经使用，请自定义其它端口，并在防火墙设置开放相对应得端口</p>
+<blockquote>
+<ol>
+<li>查看端口运行情况  <code>netstat -ntlp</code></li>
+<li>通过<code>systemctl start firewalld</code>开启防火墙，没有任何提示即开启成功</li>
+<li>配置防火墙，开放80端口</li>
+<li><code>firewall-cmd --zone=public --add-port=80/tcp --permanent</code></li>
+<li><code>firewall-cmd --reload</code></li>
+</ol>
+</blockquote>
+<h4 id="5-重置并启动GitLab"><a href="#5-重置并启动GitLab" class="headerlink" title="5. 重置并启动GitLab"></a>5. 重置并启动GitLab</h4><p>执行：</p>
+<p><code>gitlab-ctl reconfigure</code></p>
+<p><code>gitlab-ctl restart</code></p>
+<h4 id="6-访问-GitLab页面"><a href="#6-访问-GitLab页面" class="headerlink" title="6.访问 GitLab页面"></a>6.访问 GitLab页面</h4><p>如果没有域名，直接输入服务器ip和指定端口进行访问</p>
+<p>初始账户: root 密码: 5iveL!fe</p>
+<p>第一次登录修改密码</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[CentOS 7.3 x64 环境配置-1]]></title>
       <url>/2017/07/05/CentOS7.3-1/</url>
       <content type="html"><![CDATA[<h2 id="CentOS-7-3-x64-环境配置"><a href="#CentOS-7-3-x64-环境配置" class="headerlink" title="CentOS 7.3 x64 环境配置"></a>CentOS 7.3 x64 环境配置</h2><h3 id="Tomcat配置优化"><a href="#Tomcat配置优化" class="headerlink" title="[Tomcat配置优化]"></a>[Tomcat配置优化]</h3><blockquote>

@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="CentOS 7.3 x64 环境配置[Tomcat配置优化]  查看端口运行情况  netstat -ntlp 通过systemctl start firewalld开启防火墙，没有任何提示即开启成功 修改conf/server.xml8080端口为80 配置防火墙，开放80端口 firewall-cmd --zone=public --add-port=80/tcp --permanent f">
+<meta name="description" content="安装git详情见上一篇文章查看系统版本 cat /etc/redhat-release查看系统位数  getconf LONG_BIT 安装go语言环境 官网：https://golang.org/dl/下载地址：wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz 解压到/usr/local目录下 ：tar z">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS 7.3 x64 环境配置-1">
-<meta property="og:url" content="http://wasis.cn/2017/07/05/CentOS7.3-1/index.html">
+<meta property="og:title" content="CentOS 7.3 搭建Gogs服务">
+<meta property="og:url" content="http://wasis.cn/2017/07/08/gogs-1/index.html">
 <meta property="og:site_name" content="此间的少年">
-<meta property="og:description" content="CentOS 7.3 x64 环境配置[Tomcat配置优化]  查看端口运行情况  netstat -ntlp 通过systemctl start firewalld开启防火墙，没有任何提示即开启成功 修改conf/server.xml8080端口为80 配置防火墙，开放80端口 firewall-cmd --zone=public --add-port=80/tcp --permanent f">
-<meta property="og:updated_time" content="2017-07-05T06:03:16.936Z">
+<meta property="og:description" content="安装git详情见上一篇文章查看系统版本 cat /etc/redhat-release查看系统位数  getconf LONG_BIT 安装go语言环境 官网：https://golang.org/dl/下载地址：wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz 解压到/usr/local目录下 ：tar z">
+<meta property="og:updated_time" content="2017-07-09T12:10:37.877Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS 7.3 x64 环境配置-1">
-<meta name="twitter:description" content="CentOS 7.3 x64 环境配置[Tomcat配置优化]  查看端口运行情况  netstat -ntlp 通过systemctl start firewalld开启防火墙，没有任何提示即开启成功 修改conf/server.xml8080端口为80 配置防火墙，开放80端口 firewall-cmd --zone=public --add-port=80/tcp --permanent f">
+<meta name="twitter:title" content="CentOS 7.3 搭建Gogs服务">
+<meta name="twitter:description" content="安装git详情见上一篇文章查看系统版本 cat /etc/redhat-release查看系统位数  getconf LONG_BIT 安装go语言环境 官网：https://golang.org/dl/下载地址：wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz 解压到/usr/local目录下 ：tar z">
 
 
 
@@ -117,7 +117,7 @@
   };
 </script>
 
-  <title> CentOS 7.3 x64 环境配置-1 | 此间的少年 </title>
+  <title> CentOS 7.3 搭建Gogs服务 | 此间的少年 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -290,7 +290,7 @@
             
             
               
-                CentOS 7.3 x64 环境配置-1
+                CentOS 7.3 搭建Gogs服务
               
             
           </h1>
@@ -302,8 +302,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-05T11:23:52+08:00" content="2017-07-05">
-              2017-07-05
+            <time itemprop="dateCreated" datetime="2017-07-08T11:36:52+08:00" content="2017-07-08">
+              2017-07-08
             </time>
           </span>
 
@@ -336,7 +336,7 @@
 
           
           
-             <span id="/2017/07/05/CentOS7.3-1/" class="leancloud_visitors" data-flag-title="CentOS 7.3 x64 环境配置-1">
+             <span id="/2017/07/08/gogs-1/" class="leancloud_visitors" data-flag-title="CentOS 7.3 搭建Gogs服务">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -358,33 +358,43 @@
       
 
       
-        <h2 id="CentOS-7-3-x64-环境配置"><a href="#CentOS-7-3-x64-环境配置" class="headerlink" title="CentOS 7.3 x64 环境配置"></a>CentOS 7.3 x64 环境配置</h2><h3 id="Tomcat配置优化"><a href="#Tomcat配置优化" class="headerlink" title="[Tomcat配置优化]"></a>[Tomcat配置优化]</h3><blockquote>
+        <h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><p>详情见上一篇文章<br>查看系统版本 <code>cat /etc/redhat-release</code><br>查看系统位数  <code>getconf LONG_BIT</code></p>
+<h3 id="安装go语言环境"><a href="#安装go语言环境" class="headerlink" title="安装go语言环境"></a>安装go语言环境</h3><ol>
+<li>官网：<code>https://golang.org/dl/</code><br>下载地址：<code>wget https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz</code></li>
+<li>解压到<strong>/usr/local</strong>目录下 ：<code>tar zxvf go1.8.3.linux-amd64.tar.gz</code></li>
+<li><p>编辑/etc/profile文件<br> 使用vim编辑：<code>vim /etc/profile</code><br> 添加一行：<code>export PATH=$PATH:/usr/local/go/bin</code><br> 保存 <code>source /etc/profile</code></p>
+</li>
+<li><p>测试一下：<code>go version</code>  </p>
+</li>
+<li>Gogs基于Go语言二进制安装</li>
+</ol>
+<h3 id="安装gogs"><a href="#安装gogs" class="headerlink" title="安装gogs"></a>安装gogs</h3><p>Gogs官网：<a href="https://gogs.io/" target="_blank" rel="external">https://gogs.io/</a>  </p>
 <ol>
-<li>查看端口运行情况  <code>netstat -ntlp</code></li>
-<li>通过<code>systemctl start firewalld</code>开启防火墙，没有任何提示即开启成功</li>
-<li>修改<code>conf/server.xml</code>8080端口为80</li>
-<li>配置防火墙，开放80端口</li>
-<li><code>firewall-cmd --zone=public --add-port=80/tcp --permanent</code></li>
-<li><code>firewall-cmd --reload</code></li>
+<li>找到二进制安装下载：<a href="https://gogs.io/docs/installation/install_from_binary" target="_blank" rel="external">https://gogs.io/docs/installation/install_from_binary</a><br>eg：<code>wget https://dl.gogs.io/0.11.19/linux_amd64.tar.gz</code></li>
+<li><p>解压 <code>tar zxvf xxxx.tar.gz</code>  </p>
+<p> <strong>Systemd 服务—-守护进程形式运行</strong><br> 找到<code>gogs安装目录下/scripts/systemd/gogs.service</code>文件<br> 更新 User、Group、WorkingDirectory、ExecStart 和 Environment 为相对应的值。<br> 其中 <code>WorkingDirectory</code> 为您的 Gogs 实际安装路径根目录。<br>[可选] 如果您 Gogs 安装示例使用 MySQL/MariaDB、PostgreSQL、Redis 或 memcached，请去掉相应 After 属性的注释。<br>当您完成修改后，请将文件保存至 /etc/syst</p>
+<p> 当您完成修改后，请将文件保存至 <code>/etc/systemd/system/gogs.service</code>，然后通过 <code>sudo systemctl enable gogs</code> 命令激活，最后执行 <code>sudo systemctl start gogs</code>。   </p>
+<p> 您可以通过 <code>sudo systemctl status gogs -l</code> 或 <code>sudo journalctl -b -u gogs</code> 命令检查 Gogs 的运行状态。   </p>
+</li>
 </ol>
-</blockquote>
-<ol>
-<li>启动tomcat：  <code>sh /usr/program/tomcat8/bin/startup.sh</code></li>
-<li>停止tomcat：  <code>sh /usr/program/tomcat8/bin/shutdown.sh</code></li>
+<p>参考文档：<a href="https://gogs.io/docs/intro/faqs" target="_blank" rel="external">https://gogs.io/docs/intro/faqs</a></p>
+<h3 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h3><ol>
+<li><p>直接<code>yum install nginx</code>即可</p>
+</li>
+<li><p>主配置文件是/etc/nginx/下的nginx.conf，另外一个是/etc/nginx/conf.d/下的default.conf<br> 主配置文件最末行通过 include /etc/nginx/conf.d/*.conf;引入</p>
+</li>
 </ol>
-<hr>
-<p>####1.优化tomcat8：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;!--   针对Tomcat8 80 端口优化--&gt;</div><div class="line">	&lt;Connector executor="tomcatThreadPool"</div><div class="line">			   port="80" </div><div class="line">			   protocol="org.apache.coyote.http11.Http11Nio2Protocol" </div><div class="line">			   connectionTimeout="20000" </div><div class="line">			   maxConnections="10000" </div><div class="line">			   redirectPort="8443" </div><div class="line">			   enableLookups="false"</div><div class="line">			   acceptCount="100" </div><div class="line">			   maxPostSize="10485760" </div><div class="line">			   maxHttpHeaderSize="8192" </div><div class="line">			   compression="on" </div><div class="line">			   disableUploadTimeout="true" </div><div class="line">			   compressionMinSize="2048" </div><div class="line">			   acceptorThreadCount="2" </div><div class="line">compressableMimeType="text/html,text/xml,text/plain,text/css,text/javascript,application/javascript" </div><div class="line">			   URIEncoding="utf-8" /&gt;</div><div class="line">	</div><div class="line">    &lt;!--禁用 AJP（如果你服务器没有使用 Apache）--&gt;</div><div class="line">	&lt;!--  把下面这一行注释掉，默认 Tomcat 是开启的。--&gt;</div><div class="line">	&lt;!--&lt;Connector port="8009" protocol="AJP/1.3" redirectPort="8443" /&gt;--&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="Maven配置"><a href="#Maven配置" class="headerlink" title="Maven配置"></a>Maven配置</h2><ol>
-<li>下载压缩包：<code>wget http://mirrors.cnnic.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz</code></li>
-<li>解压改名：<code>tar zxvf apache-maven-3.3.9-bin.tar.gz</code>  </li>
-<li>移到我个人习惯的安装目录下：<code>mv maven3.3.9/ /usr/program</code></li>
-<li>环境变量设置：<code>vim /etc/profile</code><br>在文件最尾巴添加下面内容:</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=/usr/program/jdk1<span class="number">.8</span><span class="number">.0</span>_101</div><div class="line">JRE_HOME=$JAVA_HOME/jre</div><div class="line">PATH=$PATH:$JAVA_HOME/bin</div><div class="line">CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</div><div class="line">export JAVA_HOME</div><div class="line">export JRE_HOME</div><div class="line">export PATH</div><div class="line">export CLASSPATH</div><div class="line"></div><div class="line">*Maven*</div><div class="line">MAVEN_HOME=/usr/program/maven3<span class="number">.3</span><span class="number">.9</span></div><div class="line">PATH=$PATH:$MAVEN_HOME/bin</div><div class="line">MAVEN_OPTS=<span class="string">"-Xms256m -Xmx356m"</span></div><div class="line">export MAVEN_HOME</div><div class="line">export PATH</div><div class="line">export MAVEN_OPTS</div></pre></td></tr></table></figure>
-<ol>
-<li>刷新配置文件：source /etc/profile</li>
-<li>测试是否安装成功：mvn -version</li>
-</ol>
+<h5 id="PS-如何使用-NGINX-的反向代理？"><a href="#PS-如何使用-NGINX-的反向代理？" class="headerlink" title="PS:如何使用 NGINX 的反向代理？"></a>PS:如何使用 NGINX 的反向代理？</h5><p>在 nginx.conf 文件中，将下面的 server 部分增加至 http 分区内并重载配置：  </p>
+<pre><code class="javascript">server {
+    listen <span class="number">80</span>;
+    server_name git.crystalnetwork.us;
+
+    location / {
+        proxy_pass http:<span class="comment">//localhost:3000;</span>
+    }
+}
+</code></pre>
+<h4 id="小命令"><a href="#小命令" class="headerlink" title="小命令"></a>小命令</h4><p>   启动nginx：    <code>service nginx start</code><br>   启动gogs   <code>sudo systemctl start gogs</code><br>   停止gogs   <code>sudo systemctl stop gogs</code></p>
 
       
     </div>
@@ -467,7 +477,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -569,7 +579,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS-7-3-x64-环境配置"><span class="nav-number">1.</span> <span class="nav-text">CentOS 7.3 x64 环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat配置优化"><span class="nav-number">1.1.</span> <span class="nav-text">[Tomcat配置优化]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven配置"><span class="nav-number">2.</span> <span class="nav-text">Maven配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装git"><span class="nav-number">1.</span> <span class="nav-text">安装git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装go语言环境"><span class="nav-number">2.</span> <span class="nav-text">安装go语言环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装gogs"><span class="nav-number">3.</span> <span class="nav-text">安装gogs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Nginx"><span class="nav-number">4.</span> <span class="nav-text">安装Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PS-如何使用-NGINX-的反向代理？"><span class="nav-number">4.0.1.</span> <span class="nav-text">PS:如何使用 NGINX 的反向代理？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小命令"><span class="nav-number">4.1.</span> <span class="nav-text">小命令</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
